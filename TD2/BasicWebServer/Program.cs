@@ -97,10 +97,10 @@ namespace BasicWebServer
                 Console.WriteLine(request.Url.Query);
 
                 //parse params in url
-                Console.WriteLine("param1 = " + HttpUtility.ParseQueryString(request.Url.Query).Get("param1"));
+                /*Console.WriteLine("param1 = " + HttpUtility.ParseQueryString(request.Url.Query).Get("param1"));
                 Console.WriteLine("param2 = " + HttpUtility.ParseQueryString(request.Url.Query).Get("param2"));
                 Console.WriteLine("param3 = " + HttpUtility.ParseQueryString(request.Url.Query).Get("param3"));
-                Console.WriteLine("param4 = " + HttpUtility.ParseQueryString(request.Url.Query).Get("param4"));
+                Console.WriteLine("param4 = " + HttpUtility.ParseQueryString(request.Url.Query).Get("param4"));*/
 
                 //
                 Console.WriteLine(documentContents);
@@ -108,18 +108,30 @@ namespace BasicWebServer
                 // Obtain a response object.
                 HttpListenerResponse response = context.Response;
 
-                // Construct a response.
-                // string responseString = "<HTML><BODY> Hello world!</BODY></HTML>";
-                MyMethods myMethods = new MyMethods();
-                string responseString = myMethods.MyMethod(HttpUtility.ParseQueryString(request.Url.Query).Get("param1"), HttpUtility.ParseQueryString(request.Url.Query).Get("param2"));
-                byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
-                Console.WriteLine(System.Text.Encoding.UTF8.GetBytes(responseString));
-                // Get a response stream and write the response to it.
-                response.ContentLength64 = buffer.Length;
-                System.IO.Stream output = response.OutputStream;
-                output.Write(buffer, 0, buffer.Length);
-                // You must close the output stream.
-                output.Close();
+                if (request.Url.Segments[1].Equals("MyMethod"))
+                {
+                    // Construct a response.
+                    // string responseString = "<HTML><BODY> Hello world!</BODY></HTML>";
+                    MyMethods myMethods = new MyMethods();
+                    string responseString = myMethods.MyMethod(HttpUtility.ParseQueryString(request.Url.Query).Get("param1"), HttpUtility.ParseQueryString(request.Url.Query).Get("param2"));
+                    byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
+                    // Console.WriteLine(System.Text.Encoding.UTF8.GetBytes(responseString));
+                    // Get a response stream and write the response to it.
+                    response.ContentLength64 = buffer.Length;
+                    System.IO.Stream output = response.OutputStream;
+                    output.Write(buffer, 0, buffer.Length);
+                    // You must close the output stream.
+                    output.Close();
+                } else if (request.Url.Segments[1].Equals("incr"))
+                {
+                    MyMethods myMethods = new MyMethods();
+                    string responseString = myMethods.incr(HttpUtility.ParseQueryString(request.Url.Query).Get("val"));
+                    byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
+                    response.ContentLength64 = buffer.Length;
+                    System.IO.Stream output = response.OutputStream;
+                    output.Write(buffer, 0, buffer.Length);
+                    output.Close();
+                }
             }
             // Httplistener neither stop ... But Ctrl-C do that ...
             // listener.Stop();

@@ -27,11 +27,11 @@ namespace BasicWebServer
 
             return output;*/
 
-            // http://localhost:8080/MyMethod?param1=Marcel&param2=Marsais-Lacoste
+            // http://localhost:8080/MyMethod?param1=Marcel&param2=Marsais-Lacoste <- URL
 
             ProcessStartInfo start = new ProcessStartInfo();
             start.FileName = @"C:\\Users\\marcelmarsais\\AppData\\Local\\Programs\\Python\\Python310\\python.exe"; // Specify exe name.
-            start.Arguments = "C:\\Users\\marcelmarsais\\Desktop\\SOC\\eiin839\\TD2\\BasicWebServer\\MyMethod.py " + param1 + " " + param2; // Specify arguments.
+            start.Arguments = "..\\..\\..\\BasicWebServer\\MyMethod.py " + param1 + " " + param2; // Specify arguments.
             start.UseShellExecute = false;
             start.RedirectStandardOutput = true;
             //
@@ -47,11 +47,21 @@ namespace BasicWebServer
                     string result = reader.ReadToEnd();
                     Console.WriteLine(result);
                     //Console.ReadLine();
-                    Console.WriteLine("la");
+                    // Console.WriteLine("la");
                     //Console.ReadLine();
                     return result;
                 }
             }
+        }
+
+        public string incr(string val)
+        {
+            // http://localhost:8080/incr?val=...
+
+            int valInt = Int32.Parse(val);
+            valInt += 1;
+
+            return "incr OK " + valInt;
         }
     }
 }
