@@ -61,7 +61,7 @@ namespace BasicWebServer
             int valInt = Int32.Parse(val);
             valInt += 1;
 
-            return "incr OK " + valInt;
+            return "incr OK val=" + valInt;
         }
     }
 }
