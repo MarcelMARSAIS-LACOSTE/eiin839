@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Web.Script.Serialization;
 
 namespace BasicWebServer
 {
@@ -62,6 +63,16 @@ namespace BasicWebServer
             valInt += 1;
 
             return "incr OK val=" + valInt;
+
+            /*var json = "{ str : incr," +
+                "res : OK," +
+                "str2 : val=" +
+                "val : " + valInt + " }";*/
+
+            // return json;
+
+            // return json;
+            // var serializer = new JavaScriptSerializer();
         }
     }
 }
