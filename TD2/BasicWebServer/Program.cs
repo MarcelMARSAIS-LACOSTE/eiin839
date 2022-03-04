@@ -5,7 +5,7 @@ using System.Net;
 using System.Text;
 using System.Web;
 
-namespace BasicServerHTTPlistener
+namespace BasicWebServer
 {
     internal class Program
     {
@@ -109,8 +109,11 @@ namespace BasicServerHTTPlistener
                 HttpListenerResponse response = context.Response;
 
                 // Construct a response.
-                string responseString = "<HTML><BODY> Hello world!</BODY></HTML>";
+                // string responseString = "<HTML><BODY> Hello world!</BODY></HTML>";
+                MyMethods myMethods = new MyMethods();
+                string responseString = myMethods.MyMethod(HttpUtility.ParseQueryString(request.Url.Query).Get("param1"), HttpUtility.ParseQueryString(request.Url.Query).Get("param2"));
                 byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
+                Console.WriteLine(System.Text.Encoding.UTF8.GetBytes(responseString));
                 // Get a response stream and write the response to it.
                 response.ContentLength64 = buffer.Length;
                 System.IO.Stream output = response.OutputStream;
